@@ -112,7 +112,7 @@ def train(args, snapshot_path):
 
     optimizer = optim.SGD(model.parameters(), lr=base_lr,
                           momentum=0.9, weight_decay=0.0001)
-    weights = torch.tensor([1,10,10], dtype=torch.float32).cuda() 
+    weights = torch.tensor([1,5,10], dtype=torch.float32).cuda() 
     ce_loss = CrossEntropyLoss(weight = weights, ignore_index=num_classes)
     ce_loss2 = CrossEntropyLoss()
 
