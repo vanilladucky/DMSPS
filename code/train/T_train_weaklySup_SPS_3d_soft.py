@@ -64,7 +64,7 @@ parser.add_argument('--deterministic', type=int,  default=1,
                     help='whether use deterministic training')
 parser.add_argument('--base_lr', type=float,  default=0.01,
                     help='segmentation network learning rate')
-parser.add_argument('--patch_size', type=list,  default=[80, 96, 96],
+parser.add_argument('--patch_size', type=list,  default=[128, 96, 96],
                     help='patch size of network input')
 parser.add_argument('--seed', type=int,  default=1337, help='random seed')
 
@@ -81,7 +81,7 @@ def train(args, snapshot_path):
     validData_txt = args.validData
     ES_interval = args.ES_interval
 
-    model = net_factory_3d(net_type=args.model, in_chns=4, class_num=num_classes)
+    model = net_factory_3d(net_type=args.model, in_chns=1, class_num=num_classes)
     model_parameter = sum(p.numel() for p in model.parameters())
     logging.info("model_parameter:{}M".format(round(model_parameter / (1024*1024),2)))
     db_train = BaseDataSets(
