@@ -249,7 +249,7 @@ def image_resample(subdir = "train"):
 if __name__ == "__main__":
     func = 3
     imgdir_list=["train", "val", "TestSet"]#140,30,30
-    imgdir = imgdir_list[0]
+    imgdir = imgdir_list[1]
     
     if func == 1:
         show_images_info(imgdir)
