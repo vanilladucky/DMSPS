@@ -109,7 +109,7 @@ def deal_dataSet_to_volumes(subdir = "train"):#for volumes
         os.makedirs(save_sub_dir)
     volume_num = 0
 
-    with open(f'original_{subdir}.txt', "r") as f:
+    with open(f'{input_root}/original_{subdir}.txt', "r") as f:
         case_names = [line.strip() for line in f if line.strip()]
         
     for case in case_names:
