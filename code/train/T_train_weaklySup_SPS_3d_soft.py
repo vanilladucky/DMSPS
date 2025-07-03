@@ -134,6 +134,10 @@ def train(args, snapshot_path):
             volume_batch, label_batch, gt_batch = sampled_batch['image'], sampled_batch['label'], sampled_batch['gt']
             volume_batch, label_batch, gt_batch = volume_batch.cuda(), label_batch.cuda(), gt_batch.cuda()
 
+            unique, counts = np.unique(label_batch, return_counts=True)
+            value_counts = dict(zip(unique, counts))
+            print(f"Value count for labels: {value_counts}")
+            
             outputs, outputs_aux1 = model(volume_batch)
             outputs_soft1 = torch.softmax(outputs, dim=1)
             outputs_soft2 = torch.softmax(outputs_aux1, dim=1)
