@@ -120,7 +120,7 @@ def deal_dataSet_to_volumes(subdir = "train"):#for volumes
             print(f"  WARNING: {label_path} not found, skipping.")
             continue
 
-        label_itk = sitk.ReadImage(case)
+        label_itk = sitk.ReadImage(label_path)
         label = sitk.GetArrayFromImage(label_itk)  
         
         image_path = os.path.join(input_root, case, "imaging.nii.gz")
