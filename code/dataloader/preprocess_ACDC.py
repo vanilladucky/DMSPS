@@ -14,7 +14,7 @@ from preprocess_WORD import get_3d_bounding_box
 from skimage import exposure
 
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
-data_root = "/mnt/data/HM/Datasets/ACDC2017/ACDC"
+data_root = "/root/autodl-tmp/Kim/kits23/dataset"
 # data_root = "/mnt/data/HM/Datasets/ACDC2017/ACDC_resample"
 
 
@@ -109,23 +109,27 @@ def deal_dataSet_to_volumes(subdir = "train"):#for volumes
         os.makedirs(save_sub_dir)
     volume_num = 0
 
-    image_path = sorted(
-        glob.glob(input_root + "/" + subdir + "/labels/*.nii.gz"))
+    with open(f'original_{subdir}.txt', "r") as f:
+        case_names = [line.strip() for line in f if line.strip()]
         
-    for case in image_path:
-        item_name = case.split("/")[-1].split(".")[0].replace("_gt","") 
-        print(item_name)
+    for case in case_names:
+        print(f"Processing {case}")
+
+        label_path = os.path.join(input_root, case, "segmentation.nii.gz")
+        if not os.path.exists(label_path):
+            print(f"  WARNING: {label_path} not found, skipping.")
+            continue
 
         label_itk = sitk.ReadImage(case)
         label = sitk.GetArrayFromImage(label_itk)  
         
-        image_path = case.replace("labels","images_N").replace("_gt","")
+        image_path = os.path.join(input_root, case, "imaging.nii.gz")
         # image_path = case.replace("labels","images").replace("_gt","")
         image_itk = sitk.ReadImage(image_path)
         image = sitk.GetArrayFromImage(image_itk)
 
     
-        scribble_path = case.replace("labels", "scribbles_rlessd16").replace("_gt","_scribble")
+        scribble_path = os.path.join(input_root, case, "segmentation_pCE.nii.gz")
         scribble_itk = sitk.ReadImage(scribble_path)
         scribble = sitk.GetArrayFromImage(scribble_itk)
         
@@ -133,7 +137,7 @@ def deal_dataSet_to_volumes(subdir = "train"):#for volumes
         if image.shape != label.shape:
             print("Error, the shape of validating image is not same as label")
  
-        f = h5py.File(save_sub_dir + '/{}.h5'.format(item_name), 'w')
+        f = h5py.File(save_sub_dir + '/{}.h5'.format(case), 'w')
         f.create_dataset('image', data=image, compression="gzip")
         f.create_dataset('label', data=label, compression="gzip")
         if subdir =="train":
@@ -243,7 +247,7 @@ def image_resample(subdir = "train"):
             sitk.WriteImage(resampled_img, output_dir + '/' + img_name)
 
 if __name__ == "__main__":
-    func = 5
+    func = 3
     imgdir_list=["train", "val", "TestSet"]#140,30,30
     imgdir = imgdir_list[0]
     
