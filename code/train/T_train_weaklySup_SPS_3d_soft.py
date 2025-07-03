@@ -225,8 +225,9 @@ def train(args, snapshot_path):
                 writer.add_scalar('info/val_dice_score', metric_list[:, 0].mean(), iter_num)
                 logging.info("metric_list:{}".format(metric_list))
                 logging.info('iteration %d : dice_score : %f ' % (iter_num, metric_list[:, 0].mean()))
-                print("metric_list:{}".format(metric_list))
-                print('iteration %d : dice_score : %f ' % (iter_num, metric_list[:, 0].mean()))
+                #print("metric_list:{}".format(metric_list))
+                print(f"Iteration: {iter_num} | Kidney dice score: {metric_list[0][0]:.3f} | Tumor dice score: {metric_list[1][0]:.3f}")
+                #print('iteration %d : dice_score : %f ' % (iter_num, metric_list[:, 0].mean()))
                 model.train()
 
             """if iter_num % 3000 == 0:
