@@ -44,7 +44,7 @@ parser.add_argument('--validData', type=str,
                     default='/root/autodl-tmp/Kim/kits23/dataset/original_val.txt', help='Data name, select mode for Abdomen: word, BTCV')
 
 parser.add_argument('--model', type=str,
-                    default='unet_cct_dropout_3D', help='select mode: unet_cct_dp_3D, \
+                    default='unet_cct_dp_3D', help='select mode: unet_cct_dp_3D, \
                         attention_unet_2dual_3d, unetr_2dual_3d')
 parser.add_argument('--exp', type=str,
                     default='T_weakly_SPS_3d', help='experiment_name')
