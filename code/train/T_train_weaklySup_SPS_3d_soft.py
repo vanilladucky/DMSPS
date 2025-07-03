@@ -127,7 +127,7 @@ def train(args, snapshot_path):
     iterator = tqdm(range(max_epoch), ncols=70)
 
     for epoch_num in iterator:
-        print(f"========Epoch: {epoch_num+1}========")
+        print(f"\n========Epoch: {epoch_num+1}========")
         for i_batch, sampled_batch in enumerate(trainloader):
 
             volume_batch, label_batch, gt_batch = sampled_batch['image'], sampled_batch['label'], sampled_batch['gt']
@@ -161,6 +161,7 @@ def train(args, snapshot_path):
             writer.add_scalar('info/loss_ce2',loss_ce2,iter_num)
             writer.add_scalar('info/loss_ce', loss_ce, iter_num)
             writer.add_scalar('info/loss_sps',loss_pse_sup_soft,iter_num)
+            print(f"Total loss: {loss:.2f} | loss_ce1: {loss_ce1:.2f} | loss_ce2: {loss_ce2:.2f} | loss_ce: {loss_ce:.2f} | loss_sps: {loss_pse_sup_soft:.2f}")
 
 
             # print("volume_batch_shape:{}".format(volume_batch.shape)) #volume_batch_shape:torch.Size([1, 1, 16, 256, 256])
@@ -225,6 +226,8 @@ def train(args, snapshot_path):
                 writer.add_scalar('info/val_dice_score', metric_list[:, 0].mean(), iter_num)
                 logging.info("metric_list:{}".format(metric_list))
                 logging.info('iteration %d : dice_score : %f ' % (iter_num, metric_list[:, 0].mean()))
+                print("metric_list:{}".format(metric_list))
+                print('iteration %d : dice_score : %f ' % (iter_num, metric_list[:, 0].mean()))
                 model.train()
 
             """if iter_num % 3000 == 0:
