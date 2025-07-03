@@ -28,7 +28,7 @@ from dataloader.transform_3D_4dim import *
 from networks.net_factory_3d import net_factory_3d
 from val_3D import test_all_case_3D
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "1"
+os.environ["CUDA_VISIBLE_DEVICES"] = "2"
 parser = argparse.ArgumentParser()
 
 parser.add_argument('--root_path', type=str,
