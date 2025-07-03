@@ -124,5 +124,14 @@ def test_all_case_3D(valloader, net, args, stride_xy=32, stride_z=24):
             net, args.model, image, stride_xy, stride_z, args.patch_size, num_classes=args.num_classes)
         for i in range(1, args.num_classes):
             total_metric[i-1, :] += cal_metric(label == i, prediction == i)
+
+        unique, counts = np.unique(prediction, return_counts=True)
+        value_counts = dict(zip(unique, counts))
+        print(f"Value count for validation model output: {value_counts}")
+
+        unique, counts = np.unique(label, return_counts=True)
+        value_counts = dict(zip(unique, counts))
+        print(f"Value count for validation ground truth: {value_counts}")
+
     print("\nValidation end")
     return total_metric / len(valloader)
