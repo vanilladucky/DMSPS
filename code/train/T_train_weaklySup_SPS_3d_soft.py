@@ -127,6 +127,7 @@ def train(args, snapshot_path):
     iterator = tqdm(range(max_epoch), ncols=70)
 
     for epoch_num in iterator:
+        print(f"========Epoch: {epoch_num+1}========")
         for i_batch, sampled_batch in enumerate(trainloader):
 
             volume_batch, label_batch, gt_batch = sampled_batch['image'], sampled_batch['label'], sampled_batch['gt']

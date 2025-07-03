@@ -124,5 +124,5 @@ def test_all_case_3D(valloader, net, args, stride_xy=32, stride_z=24):
             net, args.model, image, stride_xy, stride_z, args.patch_size, num_classes=args.num_classes)
         for i in range(1, args.num_classes):
             total_metric[i-1, :] += cal_metric(label == i, prediction == i)
-    print("Validation end")
+    print("\nValidation end")
     return total_metric / len(valloader)
