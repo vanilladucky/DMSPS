@@ -24,7 +24,7 @@ class BaseDataSets(Dataset):
         self.num_classes = num_classes
         self.sample_list = []
 
-        data_path = self._base_dir + '/' + data_txt
+        data_path = data_txt
         with open(data_path, 'r') as f:
             self.image_list = f.readlines()
         self.image_list = [item.replace('\n', '').split(",")[0] for item in self.image_list]

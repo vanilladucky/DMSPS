@@ -32,16 +32,16 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 parser = argparse.ArgumentParser()
 
 parser.add_argument('--root_path', type=str,
-                    default='/mnt/data/HM/Datasets/BraTS2020/MICCAI_BraTS2020_TrainingPre', 
+                    default='/root/autodl-tmp/Kim/kits23/dataset_for2D', 
                     help='training data root path')
 parser.add_argument('--data_type', type=str,
                     default='BraTS', help='Data category')
 parser.add_argument('--data_name', type=str,
                     default='brats2020_3d', help='Data name, select mode for Abdomen: word, BTCV')
 parser.add_argument('--trainData', type=str,
-                    default='train.txt', help='Data name, select mode for Abdomen: word, BTCV')
+                    default='/root/autodl-tmp/Kim/kits23/dataset/original_train.txt', help='Data name, select mode for Abdomen: word, BTCV')
 parser.add_argument('--validData', type=str,
-                    default='valid.txt', help='Data name, select mode for Abdomen: word, BTCV')
+                    default='/root/autodl-tmp/Kim/kits23/dataset/original_val.txt', help='Data name, select mode for Abdomen: word, BTCV')
 
 parser.add_argument('--model', type=str,
                     default='unet_cct_dropout_3D', help='select mode: unet_cct_dp_3D, \
@@ -85,7 +85,7 @@ def train(args, snapshot_path):
     model_parameter = sum(p.numel() for p in model.parameters())
     logging.info("model_parameter:{}M".format(round(model_parameter / (1024*1024),2)))
     db_train = BaseDataSets(
-        base_dir=data_root_path, 
+        base_dir='/root/autodl-tmp/Kim/kits23/dataset_for2D/trainrlessd16_volumes', 
         split="train",
         data_txt = trainData_txt,
         transform=transforms.Compose([
@@ -96,7 +96,7 @@ def train(args, snapshot_path):
         num_classes=num_classes
         )
     db_val = BaseDataSets(
-            base_dir= data_root_path, 
+            base_dir= '/root/autodl-tmp/Kim/kits23/dataset_for2D/valrlessd16_volumes', 
             split="val",
             data_txt = validData_txt,
             num_classes=num_classes)
@@ -226,11 +226,11 @@ def train(args, snapshot_path):
                 logging.info('iteration %d : dice_score : %f ' % (iter_num, metric_list[:, 0].mean()))
                 model.train()
 
-            if iter_num % 3000 == 0:
+            """if iter_num % 3000 == 0:
                 save_mode_path = os.path.join(
                     snapshot_path, 'iter_' + str(iter_num) + '.pth')
                 torch.save(model.state_dict(), save_mode_path)
-                logging.info("save model to {}".format(save_mode_path))
+                logging.info("save model to {}".format(save_mode_path))"""
 
             if iter_num - fresh_iter_num >= ES_interval:
                 logging.info("early stooping since there is no model updating over 1w \
