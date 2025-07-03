@@ -38,7 +38,7 @@ class BaseDataSets(Dataset):
 
     def __getitem__(self, idx):
         image_name = self.image_list[idx]
-        h5f = h5py.File(self._base_dir + "/{}".format(image_name), 'r')
+        h5f = h5py.File(self._base_dir + "/{}.h5".format(image_name), 'r')
         if self.split == "train":
             image = h5f['image'][:]
             gt = h5f['label'][:]
