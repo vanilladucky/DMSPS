@@ -72,7 +72,7 @@ args = parser.parse_args()
 
 
 def train(args, snapshot_path):
-    data_root_path = args.data_root_path
+    # data_root_path = args.data_root_path
     batch_size = args.batch_size
     base_lr = args.base_lr
     num_classes = args.num_classes
