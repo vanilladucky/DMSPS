@@ -161,9 +161,7 @@ def train(args, snapshot_path):
             writer.add_scalar('info/loss_ce2',loss_ce2,iter_num)
             writer.add_scalar('info/loss_ce', loss_ce, iter_num)
             writer.add_scalar('info/loss_sps',loss_pse_sup_soft,iter_num)
-            print(f"Total loss: {loss:.2f} | loss_ce1: {loss_ce1:.2f} | loss_ce2: {loss_ce2:.2f} | loss_ce: {loss_ce:.2f} | loss_sps: {loss_pse_sup_soft:.2f}")
-
-
+        
             # print("volume_batch_shape:{}".format(volume_batch.shape)) #volume_batch_shape:torch.Size([1, 1, 16, 256, 256])
             # if iter_num % 100 == 0:
             #     image = volume_batch[0, 0:1, 0:6:1,:, :].permute(
@@ -202,6 +200,7 @@ def train(args, snapshot_path):
             #                      grid_image, iter_num)
                 
             if iter_num > 0 and iter_num % 200 == 0:
+                print(f"Iteration: {iter_num} | Total loss: {loss:.2f} | loss_ce1: {loss_ce1:.2f} | loss_ce2: {loss_ce2:.2f} | loss_ce: {loss_ce:.2f} | loss_sps: {loss_pse_sup_soft:.2f}")
                 logging.info(
                 'iteration %d : loss : %f, loss_ce: %f, loss_pse_sup_soft:%f, alpha: %f' %
                 (iter_num, loss.item(), loss_ce.item(), loss_pse_sup_soft.item(), alpha))
