@@ -247,7 +247,7 @@ def test_single_volume_3d_WORD(case_path, net, test_save_path, FLAGS):
     # get the information of original image
     org_img_path = FLAGS.data_root_path.replace("_for3D","")
     if FLAGS.savedir == "TrResult":
-        org_img_path = "/root/autodl-tmp/Kim/kits23/dataset/{}/imaging.nii.gz.".format(case_name)
+        org_img_path = "/root/autodl-tmp/Kim/kits23/dataset/{}/imaging.nii.gz".format(case_name)
     elif FLAGS.savedir == "ValResult":
         org_img_path = org_img_path + "/imagesVal/{}.nii.gz".format(case_name)
     else:
