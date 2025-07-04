@@ -9,21 +9,21 @@ import h5py
 This code mainly processes the expanded train set into slices for 2d task and then write into txt"""
 parser = argparse.ArgumentParser()
 parser.add_argument('--data_root_path', type=str,
-                    default='/mnt/data/HM/Datasets/ACDC2017/ACDC', help='Name of Experiment')
+                    default='/root/autodl-tmp/Kim/kits23/dataset_for2D/trainrlessd16_volumes', help='Name of Experiment')
 parser.add_argument('--data_type', type=str,
-                    default='Heart', help='Data category')
+                    default='BraTS', help='Data category')
 parser.add_argument('--data_name', type=str,
-                    default='ACDC', help='Data name') 
+                    default='brats2020_3d', help='Data name')
 parser.add_argument('--savedir', type=str,
                     default='TrResult', help='TsResult for testSet, ValResult for valSet, TrResult for trainSet')
  
 parser.add_argument('--model', type=str,
                     default='unet_cct', help='model_name')
 parser.add_argument('--exp', type=str,
-                    default='A_weakly_SPS_2d', help='experiment_name')
+                    default='T_weakly_SPS_3d', help='experiment_name')
 parser.add_argument('--fold', type=str,
                     default='stage1', help='fold name')
-parser.add_argument('--num_classes', type=int,  default=4,
+parser.add_argument('--num_classes', type=int,  default=3,
                     help='output channel of network') 
 parser.add_argument('--tt_num', type=int, default=3,
                     help='test times_num') 
