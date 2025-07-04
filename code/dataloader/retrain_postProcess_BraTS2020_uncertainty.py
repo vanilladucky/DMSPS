@@ -9,7 +9,7 @@ import h5py
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 parser = argparse.ArgumentParser()
 parser.add_argument('--data_root_path', type=str,
-                    default='/mnt/data/HM/Datasets/BraTS2020/MICCAI_BraTS2020_TrainingPre', help='Name of Experiment')
+                    default='/root/autodl-tmp/Kim/kits23/dataset_for2D', help='Name of Experiment')
 parser.add_argument('--data_type', type=str,
                     default='BraTS', help='Data category')
 parser.add_argument('--data_name', type=str,
@@ -110,8 +110,8 @@ def write_images_nametxt(flag, subdir = "Tr"):
 
 if __name__ == "__main__":
 
-    input_test_save_path = "../../result/{}_{}/{}_{}_{}_{}_{}".format(
-        FLAGS.data_type, FLAGS.data_name, FLAGS.exp, FLAGS.model, FLAGS.fold, FLAGS.savedir, FLAGS.tt_num)
+    input_test_save_path = "/root/autodl-tmp/Kim/kits23/{}_{}/{}_{}_{}_{}_{}".format(
+         FLAGS.data_type, FLAGS.data_name, FLAGS.exp, FLAGS.model, FLAGS.fold, FLAGS.savedir, FLAGS.tt_num)
    
     func =FLAGS.func
     flag = FLAGS.txtName+"_volumes"
