@@ -28,19 +28,19 @@ import random
 from networks.net_factory_3d import net_factory_3d
 from uttils import calculate_metric_percase, logInference, get_the_first_k_largest_components, get_rgb_from_uncertainty
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "1"
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
 # model and file parameter
 parser = argparse.ArgumentParser()
 parser.add_argument('--data_root_path', type=str,
-                    default='/mnt/data/HM/Datasets/Abdomen_word/WORD-V0.1.0-Admin_cropWL_for3D',
+                    default='/root/autodl-tmp/Kim/kits23/dataset_for2D',
                     help='training data root path; subfolders: train_dir, test dir, valid_dir') 
 parser.add_argument('--data_type', type=str,
-                    default='Abdomen', help='Data category')
+                    default='BraTS', help='Data category')
 parser.add_argument('--data_name', type=str,
-                    default='word_3d', help='Data name')
+                    default='brats2020_3d', help='Data name')
 parser.add_argument('--testData', type=str,
-                    default='train.txt', help='Data text: train.txt for retrain, test.txt, valid.txt')
+                    default='train', help='Data text: train.txt for retrain, test.txt, valid.txt')
 parser.add_argument('--savedir', type=str,
                     default='TrResult', help='TsResult for testSet, ValResult for valSet, TrResult for trainSet')
 
@@ -48,17 +48,17 @@ parser.add_argument('--model', type=str,
                     default='unet_cct_dp_3D', help='select mode: unet_cct_dp_3D, \
                         attention_unet_2dual_3d, unetr_2dual_3d')
 parser.add_argument('--exp', type=str,
-                    default='W_weakly_PLS_soft_3d', help='experiment_name')
+                    default='T_weakly_SPS_3d', help='experiment_name')
 parser.add_argument('--fold', type=str,
                     default='stage1', help='fold name') 
-parser.add_argument('--num_classes', type=int,  default=8,
+parser.add_argument('--num_classes', type=int,  default=3,
                     help='output channel of network') 
 parser.add_argument('--tt_num', type=int, default=3,
                     help='test times num:3,4 for uncertainty')
 
 parser.add_argument('--threshold', type=float, default=0.3,
                     help='uncertainty threshold') 
-parser.add_argument('--uncertainty_show_path', type=str, default="../../figure/MedIA_WORD/uncertainty_thre03/",
+parser.add_argument('--uncertainty_show_path', type=str, default="/root/autodl-tmp/Kim/kits23/uncertainty",
                     help='') 
 parser.add_argument('--seed', type=int,  default=2022, help='random seed')
 
@@ -247,7 +247,7 @@ def test_single_volume_3d_WORD(case_path, net, test_save_path, FLAGS):
     # get the information of original image
     org_img_path = FLAGS.data_root_path.replace("_for3D","")
     if FLAGS.savedir == "TrResult":
-        org_img_path = org_img_path + "/imagesTr/{}.nii.gz".format(case_name)
+        org_img_path = "/root/autodl-tmp/Kim/kits23/dataset/{}/imaging.nii.gz.".format(case_name)
     elif FLAGS.savedir == "ValResult":
         org_img_path = org_img_path + "/imagesVal/{}.nii.gz".format(case_name)
     else:
@@ -323,7 +323,7 @@ def test_single_volume_3d_WORD(case_path, net, test_save_path, FLAGS):
     return [metric, metric_auxi, metric_mean, metric_cum] 
 
 def Inference(FLAGS, test_save_path):
-    with open(FLAGS.data_root_path + '/{}'.format(FLAGS.testData), 'r') as f:
+    with open(f'/root/autodl-tmp/Kim/kits23/dataset/original_{FLAGS.testData}.txt', 'r') as f:
         image_list = f.readlines()
     image_list = [FLAGS.data_root_path + "/{}".format(item.replace('\n', '')) for item in image_list]
     logging.info("test volume num:{}".format(len(image_list)))
@@ -370,7 +370,7 @@ if __name__ == '__main__':
     torch.cuda.manual_seed(FLAGS.seed)
 
     
-    test_save_path = "../../result/{}_{}/{}_{}_{}_{}_{}".format(
+    test_save_path = "/root/autodl-tmp/Kim/kits23/{}_{}/{}_{}_{}_{}_{}".format(
          FLAGS.data_type, FLAGS.data_name, FLAGS.exp, FLAGS.model, FLAGS.fold, FLAGS.savedir, FLAGS.tt_num)
 
     if os.path.exists(test_save_path):

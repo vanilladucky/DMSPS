@@ -273,8 +273,7 @@ if __name__ == "__main__":
     torch.manual_seed(args.seed)
     torch.cuda.manual_seed(args.seed)
 
-    snapshot_path = "../../model/{}_{}/{}_{}_{}".format(
-        args.data_type, args.data_name, args.exp, args.model, args.fold)
+    snapshot_path = "/root/autodl-tmp/Kim/DMSPS/code/train"
     if not os.path.exists(snapshot_path):
         os.makedirs(snapshot_path)
 
