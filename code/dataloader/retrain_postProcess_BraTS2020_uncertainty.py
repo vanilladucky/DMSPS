@@ -18,7 +18,7 @@ parser.add_argument('--savedir', type=str,
                     default='TrResult', help='TsResult for testSet, ValResult for valSet, TrResult for trainSet')
  
 parser.add_argument('--model', type=str,
-                    default='unet_cct_dropout_3D', help='model_name')
+                    default='unet_cct_dp_3D', help='model_name')
 parser.add_argument('--exp', type=str,
                     default='T_weakly_SPS_3d', help='experiment_name')
 parser.add_argument('--fold', type=str,
