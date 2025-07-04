@@ -115,7 +115,7 @@ if __name__ == "__main__":
    
     func =FLAGS.func
     flag = FLAGS.txtName+"_volumes"
-
+    print(input_test_save_path)
     if func == 0:
         deal_retrainData_to_volumes(input_test_save_path, flag)
     elif func == 1:
