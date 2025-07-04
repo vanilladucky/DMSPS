@@ -325,7 +325,7 @@ def test_single_volume_3d_WORD(case_path, net, test_save_path, FLAGS):
 def Inference(FLAGS, test_save_path):
     with open(f'/root/autodl-tmp/Kim/kits23/dataset/original_{FLAGS.testData}.txt', 'r') as f:
         image_list = f.readlines()
-    image_list = [FLAGS.data_root_path + "/{}".format(item.replace('\n', '')) for item in image_list]
+    image_list = [FLAGS.data_root_path + "/{}.h5".format(item.replace('\n', '')) for item in image_list]
     logging.info("test volume num:{}".format(len(image_list)))
     
     #definite net model
