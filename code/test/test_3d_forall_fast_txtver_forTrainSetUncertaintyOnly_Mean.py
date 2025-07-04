@@ -33,7 +33,7 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 # model and file parameter
 parser = argparse.ArgumentParser()
 parser.add_argument('--data_root_path', type=str,
-                    default='/root/autodl-tmp/Kim/kits23/dataset_for2D',
+                    default='/root/autodl-tmp/Kim/kits23/dataset_for2D/trainrlessd16_volumes',
                     help='training data root path; subfolders: train_dir, test dir, valid_dir') 
 parser.add_argument('--data_type', type=str,
                     default='BraTS', help='Data category')
